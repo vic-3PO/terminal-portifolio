@@ -18,7 +18,7 @@ export default function Terminal() {
   // Initialize with welcome message
   useEffect(() => {
     setHistory([{
-      type: 'ascii',
+      type: 'welcome',
       content: asciiArt.welcome,
       timestamp: Date.now()
     }]);
@@ -164,12 +164,24 @@ export default function Terminal() {
                 </div>
               )}
               {item.type === 'output' && (
-                <pre className="whitespace-pre-wrap text-green-400 ml-0 text-sm">
-                  {item.content}
-                </pre>
+                <div className="overflow-x-auto">
+                  <pre className="whitespace-pre text-green-400 ml-0 text-sm inline-block min-w-0">
+                    {item.content}
+                  </pre>
+                </div>
               )}
               {item.type === 'ascii' && (
-                <AsciiArt art={item.content} animate={true} />
+                <AsciiArt art={item.content} />
+              )}
+              {item.type === 'welcome' && (
+                <div className="overflow-x-auto">
+                  <pre
+                    className="text-green-400 font-mono leading-tight my-2 inline-block"
+                    style={{ fontSize: '9px', animation: 'fadeIn 0.3s ease-in' }}
+                  >
+                    {item.content}
+                  </pre>
+                </div>
               )}
             </div>
           ))}
